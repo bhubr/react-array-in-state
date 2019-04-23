@@ -9,6 +9,7 @@ class ArrayInState extends Component {
       items: []
     };
     this.addItem = this.addItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   addItem() {
@@ -17,6 +18,16 @@ class ArrayInState extends Component {
       const items = prevState.items.concat([newItem]);
       return { items: items };
     });
+  }
+
+  removeItem(removedIndex) {
+    this.setState(
+      prevState => ({
+        items: prevState.items.filter(
+          (item, index) => removedIndex !== index
+        )
+      })
+    );
   }
 
   render() {
@@ -28,7 +39,14 @@ class ArrayInState extends Component {
         <ul>
         {
           this.state.items.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li key={index}>
+              {item}
+              <button
+                onClick={() => this.removeItem(index)}
+              >
+                Remove
+              </button>
+            </li>
           ))
         }
         </ul>
