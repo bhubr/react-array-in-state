@@ -8,11 +8,23 @@ class ArrayInState extends Component {
     this.state = {
       items: []
     };
+    this.addItem = this.addItem.bind(this);
+  }
+
+  addItem() {
+    const newItem = getRandomString();
+    this.setState(prevState => {
+      const items = prevState.items.concat([newItem]);
+      return { items: items };
+    });
   }
 
   render() {
     return (
       <div className="ArrayInState">
+        <button onClick={this.addItem}>
+          Add random item
+        </button>
         <ul>
         {
           this.state.items.map((item, index) => (
